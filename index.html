@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riki Shop - Panel Pterodactyl Instan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #7b2cbf;
+            --secondary-color: #2d00f7;
+            --accent-color: #00f5d4;
+            --bg-color-1: #020024;
+            --bg-color-2: #090979;
+            --card-bg-color: rgba(255, 255, 255, 0.08);
+            --text-color: #f0f2f5;
+            --heading-color: #ffffff;
+            --light-text-color: #c7c8d3;
+            --font-family: 'Poppins', sans-serif;
+            --border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color-1);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            background: linear-gradient(45deg, var(--bg-color-1), var(--bg-color-2), var(--primary-color));
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            font-weight: 700;
+            color: var(--heading-color);
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInAnimation 1s ease-out forwards;
+        }
+
+        @keyframes fadeInAnimation {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Header --- */
+        .main-header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(2, 0, 36, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .brand-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--heading-color);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 0;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--heading-color);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: var(--light-text-color);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        .cta-button {
+            padding: 14px 30px;
+            border-radius: 50px;
+            background-color: var(--accent-color);
+            color: #111;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 245, 212, 0.3);
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 245, 212, 0.5);
+        }
+
+        /* --- Features & Testimonials Grid --- */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        .feature-card, .testimonial-card {
+            background: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+        .feature-card { text-align: center; }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .feature-icon {
+            width: 45px;
+            height: 45px;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: var(--heading-color);
+        }
+        .feature-card p, .testimonial-text {
+            color: var(--light-text-color);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .testimonial-text { font-style: italic; margin-bottom: 20px; }
+        .testimonial-author { display: flex; align-items: center; }
+        .author-info h4 { color: var(--heading-color); }
+        .stars { color: #facc15; }
+
+        /* --- Order Card (Glassmorphism) --- */
+        .card {
+            background: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+
+        /* --- Forms --- */
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--light-text-color);
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: var(--font-family);
+            background-color: rgba(0, 0, 0, 0.2);
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+        .form-group input::placeholder { color: #888; }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(0, 245, 212, 0.3);
+        }
+
+        /* --- Buttons --- */
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, var(--accent-color), #08aeea);
+            color: #111;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        /* --- Footer --- */
+        .main-footer {
+            padding: 40px 0;
+            text-align: center;
+            color: var(--light-text-color);
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+        }
+        
+        /* --- Utility & Pre-existing styles for modals, history, loader --- */
+        #loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(2, 0, 36, 0.9); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; transition: opacity 0.5s ease; }
+        .loader { border: 8px solid rgba(255,255,255,0.2); border-radius: 50%; border-top: 8px solid var(--accent-color); width: 60px; height: 60px; animation: spin 1.5s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .hidden { display: none !important; }
+        .payment-page-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 200; padding: 1rem; }
+        #qris-image { max-width: 250px; width: 100%; border-radius: 8px; border: 1px solid #eee; }
+        .spinner-container { margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .spinner { width: 24px; height: 24px; border: 3px solid rgba(255,255,255,0.2); border-left-color: var(--accent-color); border-radius: 50%; animation: spin 1s linear infinite; }
+        .success-icon { font-size: 4em; color: var(--accent-color); text-align: center; line-height: 1; margin-bottom: 20px; }
+        .modal { display: none; position: fixed; z-index: 300; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); animation: fadeIn 0.3s; padding: 1rem; }
+        .modal-content { background-color: #1a1a2e; border: 1px solid var(--border-color); margin: 10vh auto; padding: 25px; width: 100%; max-width: 600px; border-radius: 12px; position: relative; }
+        .close-modal { color: #aaa; position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; }
+        #panel-data-content { background-color: #0f0f1b; color: #f0f2f5; padding: 15px; border-radius: 8px; white-space: pre-wrap; word-wrap: break-word; font-family: 'Courier New', Courier, monospace; }
+        .history-btn { font-size: 1.5rem; background: none; border: 1px solid var(--border-color); color: var(--text-color); border-radius: 8px; width: 40px; height: 40px; cursor: pointer; }
+        .history-panel { height: 100%; width: 0; max-width: 350px; position: fixed; z-index: 400; top: 0; right: 0; background-color: #10101d; overflow-x: hidden; transition: 0.5s; padding-top: 60px; box-shadow: -2px 0 10px rgba(0,0,0,0.5); }
+        .history-panel .close-btn { position: absolute; top: 15px; left: 25px; font-size: 36px; text-decoration: none; color: #818181; }
+        .history-panel h3 { padding: 0 32px; color: var(--heading-color); }
+        #history-content .history-item { padding: 15px 32px; border-bottom: 1px solid var(--border-color); cursor: pointer; }
+        #history-content .history-item:hover { background-color: #1b1b2f; }
+        
+        /* --- RESPONSIVE DESIGN --- */
+
+        /* Tablet */
+        @media (min-width: 768px) {
+            .section { padding: 80px 0; }
+            .section-title { font-size: 2.5rem; }
+            .hero h1 { font-size: 3.5rem; }
+            .hero p { font-size: 1.2rem; }
+            .grid-layout { grid-template-columns: repeat(2, 1fr); }
+            .card { padding: 40px; }
+        }
+
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .hero h1 { font-size: 4rem; }
+            .features-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-animation"></div>
+    <div id="loading-overlay"><div class="loader"></div></div>
+    <div id="history-panel" class="history-panel">
+        <a href="javascript:void(0)" class="close-btn" id="close-history-btn">&times;</a>
+        <h3>Riwayat Pembelian</h3>
+        <div id="history-content"></div>
+    </div>
+
+    <header class="main-header">
+        <div class="container" style="display:flex; justify-content: space-between; align-items: center;">
+            <div class="brand-logo">RikiShop</div>
+            <button id="history-btn" class="history-btn">&#9776;</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero container">
+            <div class="fade-in">
+                <h1>Panel Pterodactyl Instan, Aktif dalam Sekejap</h1>
+                <p>Dapatkan server panel berperforma tinggi dengan proses aktivasi otomatis 24/7. Pilih paket, bayar, dan server Anda langsung siap digunakan.</p>
+                <a href="#order-section" class="cta-button">Pesan Sekarang</a>
+            </div>
+        </section>
+
+        <div class="container">
+            <section class="features section">
+                <h2 class="section-title fade-in">Kenapa Memilih Kami?</h2>
+                <div class="grid-layout features-grid fade-in">
+                    <div class="feature-card">
+                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        <h3>Otomatis & Cepat</h3>
+                        <p>Sistem kami sepenuhnya otomatis. Setelah pembayaran terkonfirmasi, panel Anda dibuat dalam hitungan detik.</p>
+                    </div>
+                    <div class="feature-card">
+                         <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                        <h3>Aman & Terpercaya</h3>
+                        <p>Pembayaran aman melalui QRIS. Data Anda kami jamin kerahasiaannya dan tidak akan disalahgunakan.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-12v4m-2-2h4m6 10v4m-2-2h4M12 3v18" /></svg>
+                        <h3>Performa Tinggi</h3>
+                        <p>Server kami menggunakan hardware terbaik untuk memastikan panel Anda berjalan lancar dan responsif.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <h3>Dukungan Penuh</h3>
+                        <p>Mengalami kendala? Tim support kami siap membantu Anda menyelesaikan masalah seputar layanan panel.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="order-section" class="order-section section">
+                <h2 class="section-title fade-in">3 Langkah Mudah Mendapatkan Panel</h2>
+                <div class="card fade-in">
+                    <form id="order-form">
+                        <div class="form-group">
+                            <label for="username">Langkah 1: Tentukan Username Panel</label>
+                            <input type="text" id="username" name="username" placeholder="contoh: rikiganteng" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Langkah 2: Buat Password yang Aman</label>
+                            <input type="password" id="password" name="password" placeholder="••••••••••••" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="panel-choice">Langkah 3: Pilih Paket Sesuai Kebutuhan</label>
+                            <select id="panel-choice" name="panel-choice" required>
+                                <option value="" disabled selected>-- Pilih Spesifikasi RAM --</option>
+                                <option value="1gb">1GB RAM - Rp 3.000</option>
+                                <option value="2gb">2GB RAM - Rp 4.000</option>
+                                <option value="3gb">3GB RAM - Rp 5.000</option>
+                                <option value="4gb">4GB RAM - Rp 6.000</option>
+                                <option value="5gb">5GB RAM - Rp 7.000</option>
+                                <option value="unlimited">UNLIMITED RAM - Rp 13.000</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-submit">Lanjutkan ke Pembayaran</button>
+                    </form>
+                </div>
+            </section>
+            
+            <section class="testimonials section">
+                <h2 class="section-title fade-in">Apa Kata Mereka?</h2>
+                <div class="grid-layout fade-in">
+                     <div class="testimonial-card">
+                        <p class="testimonial-text">"Prosesnya beneran cepet banget! Bayar, scan, gak sampe semenit data panel udah masuk. Mantap RikiShop!"</p>
+                        <div class="testimonial-author"><div class="author-info"><h4>Andi Hermawan</h4><div class="stars">★★★★★</div></div></div>
+                     </div>
+                     <div class="testimonial-card">
+                        <p class="testimonial-text">"Awalnya ragu, tapi ternyata amanah banget. Websitenya juga keren dan gampang dipake. Recommended seller."</p>
+                        <div class="testimonial-author"><div class="author-info"><h4>Siti Nuraulia</h4><div class="stars">★★★★★</div></div></div>
+                     </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="main-footer"><p>&copy; 2025 RikiShop. Semua Hak Cipta Dilindungi.</p></footer>
+
+    <div id="payment-page" class="payment-page-container hidden"><div class="card fade-in" style="width: 100%; max-width: 400px; text-align: center;"><h3 style="color:var(--heading-color)">Selesaikan Pembayaran</h3><p>Pindai Kode QRIS di bawah ini.</p><div id="qris-container"><img id="qris-image" src="" alt="QRIS Code"><p>Total: <strong id="total-payment"></strong> | ID: <strong id="transaction-id"></strong></p><div class="spinner-container"><div class="spinner"></div><p>Menunggu konfirmasi...</p></div></div><button id="cancel-payment-btn" class="btn-submit" style="background: #555; margin-top: 15px;">Batalkan</button></div></div>
+    <div id="success-page" class="payment-page-container hidden"><div class="card fade-in" style="width: 100%; max-width: 400px; text-align: center;"><div class="success-icon">&#10004;</div><h3 style="color:var(--heading-color)">Pembayaran Berhasil!</h3><p>Panel Anda telah dibuat. Klik untuk melihat detail akun.</p><button id="show-data-btn" class="btn-submit">Lihat Data Panel</button></div></div>
+    <div id="data-modal" class="modal"><div class="modal-content"><span class="close-modal">&times;</span><h2 style="color: var(--heading-color)">Data Akun Panel Anda</h2><pre id="panel-data-content"></pre><button id="back-to-home-btn" class="btn-submit" style="background: #555; margin-top: 15px;">Beli Panel Lagi</button></div></div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            const orderForm = document.getElementById('order-form');
+            const paymentPage = document.getElementById('payment-page');
+            const successPage = document.getElementById('success-page');
+            const qrisImage = document.getElementById('qris-image');
+            const totalPayment = document.getElementById('total-payment');
+            const transactionIdEl = document.getElementById('transaction-id');
+            const cancelPaymentBtn = document.getElementById('cancel-payment-btn');
+            const showDataBtn = document.getElementById('show-data-btn');
+            const dataModal = document.getElementById('data-modal');
+            const closeModal = document.querySelector('.close-modal');
+            const panelDataContent = document.getElementById('panel-data-content');
+            const backToHomeBtn = document.getElementById('back-to-home-btn');
+            const historyBtn = document.getElementById('history-btn');
+            const closeHistoryBtn = document.getElementById('close-history-btn');
+            const historyPanel = document.getElementById('history-panel');
+            const historyContent = document.getElementById('history-content');
+            
+            let currentTransactionId = null, pollingInterval = null, panelDataCache = null;
+
+            const showPage = (pageToShow) => {
+                paymentPage.classList.add('hidden');
+                successPage.classList.add('hidden');
+                pageToShow.classList.remove('hidden');
+            };
+
+            const resetToHome = () => {
+                orderForm.reset();
+                currentTransactionId = null;
+                if (pollingInterval) clearInterval(pollingInterval);
+                panelDataCache = null;
+                paymentPage.classList.add('hidden');
+                successPage.classList.add('hidden');
+            };
+
+            const handleOrderSubmit = async (e) => {
+                e.preventDefault();
+                loadingOverlay.style.display = 'flex';
+
+                const formData = new FormData(orderForm);
+                const choice = formData.get('panel-choice');
+                const username = formData.get('username');
+                const password = formData.get('password');
+
+                try {
+                    const response = await fetch('/api/1-create-order', {
+                        method: 'POST', headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ choice, username, password }),
+                    });
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || 'Gagal membuat pesanan.');
+                    }
+                    const data = await response.json();
+                    
+                    qrisImage.src = data.qrImageUrl;
+                    totalPayment.textContent = `Rp ${data.amount.toLocaleString('id-ID')}`;
+                    transactionIdEl.textContent = data.transactionId;
+                    currentTransactionId = data.transactionId;
+                    panelDataCache = { username, plan: choice };
+
+                    showPage(paymentPage);
+                    startPollingForConfirmation();
+                } catch (error) {
+                    alert(`Error: ${error.message}`);
+                    resetToHome();
+                } finally {
+                    loadingOverlay.style.display = 'none';
+                }
+            };
+
+            const startPollingForConfirmation = () => {
+                pollingInterval = setInterval(async () => {
+                    if (!currentTransactionId) return;
+                    try {
+                        const response = await fetch('/api/2-confirm-order', {
+                            method: 'POST', headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                transactionId: currentTransactionId, username: panelDataCache.username,
+                                password: orderForm.password.value, plan: panelDataCache.plan
+                            }),
+                        });
+                        if (response.status === 200) {
+                            const data = await response.json();
+                            if (data.status === 'success') {
+                                clearInterval(pollingInterval);
+                                panelDataCache.details = data.panelData;
+                                savePurchaseToHistory(panelDataCache);
+                                showPage(successPage);
+                            }
+                        } else if (response.status !== 202) {
+                             clearInterval(pollingInterval);
+                             const errorData = await response.json();
+                             alert(`Terjadi kesalahan: ${errorData.message}`);
+                             resetToHome();
+                        }
+                    } catch (error) { console.error("Polling error:", error); }
+                }, 8000);
+            };
+            
+            const savePurchaseToHistory = (purchaseData) => {
+                let history = JSON.parse(localStorage.getItem('panelHistory')) || [];
+                const purchaseRecord = {
+                    id: currentTransactionId, date: new Date().toISOString(),
+                    plan: purchaseData.plan, username: purchaseData.username,
+                    details: purchaseData.details
+                };
+                history.unshift(purchaseRecord);
+                localStorage.setItem('panelHistory', JSON.stringify(history));
+                loadHistory();
+            };
+            
+            const loadHistory = () => {
+                let history = JSON.parse(localStorage.getItem('panelHistory')) || [];
+                historyContent.innerHTML = '';
+                if (history.length === 0) {
+                    historyContent.innerHTML = '<p style="padding: 0 32px; color: #888;">Belum ada riwayat.</p>';
+                    return;
+                }
+                history.forEach(item => {
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'history-item';
+                    itemEl.innerHTML = `<div style="font-weight: 600;">${item.username} (${item.plan})</div><div style="font-size: 0.8em; color: #888;">${new Date(item.date).toLocaleString('id-ID')}</div>`;
+                    itemEl.onclick = () => {
+                        panelDataContent.textContent = item.details;
+                        dataModal.style.display = "block";
+                        historyPanel.style.width = '0';
+                    };
+                    historyContent.appendChild(itemEl);
+                });
+            };
+
+            orderForm.addEventListener('submit', handleOrderSubmit);
+            cancelPaymentBtn.addEventListener('click', () => { resetToHome(); });
+            showDataBtn.addEventListener('click', () => { dataModal.style.display = 'block'; });
+            closeModal.addEventListener('click', () => { dataModal.style.display = 'none'; });
+            backToHomeBtn.addEventListener('click', () => { dataModal.style.display = 'none'; resetToHome(); });
+            window.addEventListener('click', (event) => { if (event.target == dataModal) dataModal.style.display = 'none'; });
+            historyBtn.addEventListener('click', () => { historyPanel.style.width = '100%'; });
+            closeHistoryBtn.addEventListener('click', () => { historyPanel.style.width = '0'; });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) entry.target.classList.add('fade-in');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+            
+            setTimeout(() => {
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => loadingOverlay.style.display = 'none', 500);
+            }, 500);
+            loadHistory();
+        });
+    </script>
+</body>
+</html>

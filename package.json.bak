@@ -1,0 +1,13 @@
+{
+  "name": "buy-panel-web",
+  "version": "1.0.0",
+  "description": "Website pembelian panel otomatis",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "start": "echo 'Ready for Vercel deployment'"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}

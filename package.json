@@ -1,0 +1,13 @@
+{
+  "name": "rikishop-panel",
+  "version": "1.0.0",
+  "description": "Website penjualan panel Pterodactyl otomatis.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "node-fetch": "^2.6.7"
+  }
+}
